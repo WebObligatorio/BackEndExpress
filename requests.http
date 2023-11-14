@@ -1,0 +1,33 @@
+
+//Usuario
+###
+POST http://localhost:3000/api/users/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Jose Curti",
+    "email": "josecurti.jc@gmail.com",
+    "password": "abc123"
+}
+
+###
+GET http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{}
+
+//Actividadess
+###
+POST  http://localhost:3000/api/activity/create HTTP/1.1
+Content-Type: application/json
+
+{
+        "title" : "Recreacion", 
+        "description" : "Actividades de recreacion",
+        "image": "https://www.parqueygrama.com/wp-content/uploads/2019/03/beneficiosdelarecreacionparalosninos.jpg"
+}
+
+###
+GET http://localhost:3000/api/activity HTTP/1.1
+
+{}
