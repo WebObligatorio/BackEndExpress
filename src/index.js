@@ -1,28 +1,40 @@
-const express= require("express");
+const express = require("express");
+const cors = require('cors');
 const mongoose = require("mongoose");
+
+// To use environment variables defined in .env file
 require("dotenv").config();
-const userRoutes = require("./routes/user");
-const activitysRoutes = require("./routes/activity");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const userRoutes = require("./routes/users");
+const activitiesRoutes = require("./routes/activities");
+
+app.use(cors());                // CORS middleware
+app.use(express.json());        // express.json middleware
 
 
-
-const app= express();
-const port= process.env.PORT || 3000;
-
-// midedelware
-app.use(express.json());
+// Routes
 app.use("/api", userRoutes);
-app.use("/api", activitysRoutes);
+
+// Protected Routes
+app.use("/api", activitiesRoutes);
 
 
-
-
-//mongodb conexion
-//Aca se va a conectar a mongo.
+// MongoDB connection
 mongoose
-.connect(process.env.DATABASE_URL).then(()=> console.log("Se conecto a la base de Mongo"))
-.catch((error)=> console.error(error));
+    .connect(process.env.DATABASE_URL)
+        .then(() => {
+            console.log("Successfully connected to the Mongo database.")
+        })
+        .catch((error) => {
+            console.log("An error occurred while trying to connect to the Mongo database")
+            console.error(error)
+        });
 
 
 
-app.listen(port, () => console.log('Servidor iniciado en el puerto ', port));
+app.listen(PORT, () => {
+    console.log('Server running in port: ', PORT)
+});

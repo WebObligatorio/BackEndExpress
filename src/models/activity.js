@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const activitySchema = mongoose.Schema(
     {
-        //titulo unico.
         title : {
             type: String,
             required: true
@@ -16,8 +15,7 @@ const activitySchema = mongoose.Schema(
             type: String,
             required: true
         }
+    }
+)
     
-    })
-    
-    module.exports = mongoose.model('Activity', activitySchema);
-
+module.exports = mongoose.model('Activity', activitySchema);
