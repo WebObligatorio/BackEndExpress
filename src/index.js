@@ -16,10 +16,6 @@ const activitiesRoutes = require("./routes/activities");
 app.use(cors()); // CORS middleware
 app.use(express.json()); // express.json middleware
 
-app.use("/check", (req, res) => {
-  res.send("Server is running");
-});
-
 // Routes
 app.use("/api", userRoutes);
 
