@@ -15,8 +15,6 @@ const activitiesRoutes = require("./routes/activities");
 
 const corsOptions = {
   origin: "*",
-  methods: ['GET', 'POST'],
-  credentials: false,
 };
 
 app.use(cors(corsOptions)); // CORS middleware
