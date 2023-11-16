@@ -35,6 +35,7 @@ mongoose
     console.error(error);
   });
 
+// Socket Logic
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -42,12 +43,21 @@ const io = new Server(server, {
   },
 });
 
+
 io.on("connection", (socket) => {
+
+  let roomIdFromHost = ""
+
+  // The host client fixed a Room ID
+  socket.on('set_room_id', (roomId) => {
+    roomIdFromHost = roomId
+    console.log("ROOM ID for the Game is: " + roomId)
+  });
+
   socket.on("join_room", ({ roomId, name }) => {
+    console.log("Listening Join Room: " + roomId + " --> " + name)
     socket.join(roomId);
-    socket
-      .to(roomId)
-      .emit("joined_room", { type: "join", id: socket.id, name });
+    io.to(roomId).emit("joined_room", { type: "join", id: socket.id, name: name });
   });
 
   socket.on("vote", ({ roomId, vote, activityId }) => {
@@ -57,6 +67,7 @@ io.on("connection", (socket) => {
   socket.on("set_activity", ({ roomId, activityId }) => {
     socket.to(roomId).emit("activity_set", activityId);
   });
+
 });
 
 server.listen(PORT, () => {
