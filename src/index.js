@@ -13,14 +13,7 @@ const PORT = process.env.PORT || 3000;
 const userRoutes = require("./routes/users");
 const activitiesRoutes = require("./routes/activities");
 
-// CORS middleware
-const corsOptions = {
-  origin: ['http://localhost:4200', 'https://frontend-angular-kohl.vercel.appg'],
-  methods: ['GET', 'POST'],
-  credentials: true,
-};
-app.use(cors(corsOptions)); 
-
+app.use(cors()); // CORS middleware
 app.use(express.json()); // express.json middleware
 
 // Routes
@@ -45,7 +38,9 @@ mongoose
 // Socket Logic
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: corsOptions
+  cors: {
+    origin: "*",
+  },
 });
 
 
