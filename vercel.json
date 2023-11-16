@@ -13,7 +13,10 @@
         },
         {
             "src": "/socket.io/(.*)",
-            "dest": "https://backend-node-git-socketio-integration-the-jackson-s-five.vercel.app/socket.io/$1"
+            "dest": "https://backend-node-git-socketio-integration-the-jackson-s-five.vercel.app/socket.io/$1",
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         }
     ]
 }
