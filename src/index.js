@@ -13,7 +13,13 @@ const PORT = process.env.PORT || 3000;
 const userRoutes = require("./routes/users");
 const activitiesRoutes = require("./routes/activities");
 
-app.use(cors()); // CORS middleware
+const corsOptions = {
+  origin: "*",
+  methods: ['GET', 'POST'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions)); // CORS middleware
 app.use(express.json()); // express.json middleware
 
 // Routes
