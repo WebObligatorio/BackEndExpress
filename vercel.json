@@ -8,8 +8,12 @@
     ],
     "routes": [
         {
+            "src": "/(.*)",
+            "dest": "/src/index.js"
+        },
+        {
             "src": "/socket.io/(.*)",
-            "dest": "https://tudominioenpaas.com/socket.io/$1"
+            "dest": "https://backend-node-git-socketio-integration-the-jackson-s-five.vercel.app/socket.io/$1"
         }
     ]
 }
