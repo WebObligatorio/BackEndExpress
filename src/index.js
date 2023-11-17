@@ -61,12 +61,33 @@ io.on("connection", (socket) => {
     io.to(roomId).emit("joined_room", { type: "join", id: socket.id, name: name });
   });
 
+  // Used when host confirm the game lunching
+  socket.on('game_ready', ({value, roomId}) => {
+    if (socket.rooms.has(roomId)) {
+      io.to(roomId).emit('game_ready', value)
+    }
+  }) 
+
+  // Used when the game waiting time after lunching ends
+  socket.on('game_start', ({value, roomId}) => {
+    if (socket.rooms.has(roomId)) {
+      io.to(roomId).emit('game_start', value)
+    }
+  }) 
+
+  // Used to receive votes from players, and to emit votes to host client
   socket.on("vote", ({ roomId, vote, activityId }) => {
     socket.to(roomId).emit("vote", { vote, activityId });
   });
 
-  socket.on("set_activity", ({ roomId, activityId }) => {
-    socket.to(roomId).emit("activity_set", activityId);
+  socket.on("set_activity", ({ roomId, activityId, currentActivity, lastActivity }) => {
+    console.log("Setting Activity ID: " + activityId)
+    io.to(roomId).emit("set_activity", {activityId, currentActivity, lastActivity});
+  });
+
+  socket.on("stop_activity", ({ roomId, activityId }) => {
+    console.log("Stopping Activity ID: " + activityId)
+    io.to(roomId).emit("stop_activity", activityId);
   });
 
 });
