@@ -10,8 +10,8 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const userRoutes = require("./routes/users");
-const activitiesRoutes = require("./routes/activities");
+const userRoutes = require("./src/routes/users");
+const activitiesRoutes = require("./src/routes/activities");
 
 app.use(cors()); // CORS middleware
 app.use(express.json()); // express.json middleware
