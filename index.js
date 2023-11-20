@@ -56,10 +56,10 @@ io.on("connection", (socket) => {
   });
 
   // User for the host to launch a new room (and wait for players)
-  socket.on("join_room", ({ roomId, name }) => {
-    console.log("Listening Join Room: " + roomId + " --> " + name)
+  socket.on("join_room", ({ roomId, name, socketId }) => {
+    console.log("Listening Join Room: " + roomId + " --> " + name + "   ---> Socket ID: " + socketId)
     socket.join(roomId);
-    io.to(roomId).emit("joined_room", { type: "join", id: socket.id, name: name });
+    io.to(roomId).emit("joined_room", { type: "join", id: socket.id, name: name, socketId: socketId });
   });
 
   // Used when host confirm the game lunching
@@ -77,9 +77,9 @@ io.on("connection", (socket) => {
   }) 
 
   // Used to receive votes from players, and to emit votes to host client
-  socket.on("vote", ({ roomId, activityId, vote }) => {
-    console.log("Voting Activity ID: " + activityId + " Vote Type: " + vote)
-    io.to(roomId).emit("vote", { activityId, vote });
+  socket.on("vote", ({ roomId, activityId, vote, socketId }) => {
+    console.log("Voting Activity ID: " + activityId + " Vote Type: " + vote + " ---> Socket ID: " + socketId)
+    io.to(roomId).emit("vote", { activityId, vote, socketId });
   });
 
   // Used by the host to set a new activity for voting
