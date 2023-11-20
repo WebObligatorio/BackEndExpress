@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "start:prod": "node src/index.js"
+    "start": "nodemon src/index.js &",
+    "start:prod": "node src/index.js",
+    "build": "npm run start"
   },
   "keywords": [],
   "author": "",
